@@ -58,12 +58,13 @@ public class TimerItem : IPoolObject // 实现IPoolObject接口
     public void InitInfo(int keyID, int allTime, UnityAction overCallBack, int intervalTime = 0, UnityAction callBack = null,bool forever = false)
     {
         this.keyID = keyID;
-        this.maxAllTime = this.allTime = allTime;
+        this.allTime = allTime;
+        this.intervalTime = intervalTime;
+        this.maxIntervalTime = intervalTime;
         this.overCallBack = overCallBack;
-        this.maxIntervalTime = this.intervalTime = intervalTime;
         this.callBack = callBack;
-        this.isRuning = true;
         this.forever = forever;
+        this.isRuning = true;  // 明确设置为 true
     }
 
     /// <summary>
@@ -81,7 +82,13 @@ public class TimerItem : IPoolObject // 实现IPoolObject接口
     /// </summary>
     public void ResetInfo()
     {
-        overCallBack = null;
+        keyID = -1;
+        allTime = 0;
+        intervalTime = 0;
+        maxIntervalTime = 0;
         callBack = null;
+        overCallBack = null;
+        forever = false;
+        isRuning = false;
     }
 }
